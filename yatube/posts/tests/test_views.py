@@ -89,11 +89,12 @@ class PostTests(TestCase):
                          self.post.text)
 
     def test_post_detail_correct_context(self):
-        response = self.guest_client.get(reverse(
-            'posts:post_detail',
-            args=(self.post.id,),
-        ))
-        return self.test_pages_uses_correct_template()
+        post_id = self.post.pk
+        response = self.authorized_client.get(
+            reverse('posts:post_detail', kwargs={'post_id': post_id})
+        )
+        post_context = response.context['post']
+        self.assertEqual(post_context.id, post_id)
 
     def test_create_post_correct_context(self):
         response = self.authorized_client.get(reverse('posts:post_create'))
