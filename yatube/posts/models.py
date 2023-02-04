@@ -1,7 +1,7 @@
+from pytils.translit import slugify
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from pytils.translit import slugify
 
 
 User = get_user_model()
