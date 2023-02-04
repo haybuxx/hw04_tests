@@ -73,7 +73,7 @@ class PostModelTest(TestCase):
     def test_page_404(self):
         url_names = [
             '/unexisting_page/',
-            f'/posts/{str(111)}/',
+            f'/posts/{str(555)}/',
             '/group/meow/',
             '/profile/anton/',
         ]
