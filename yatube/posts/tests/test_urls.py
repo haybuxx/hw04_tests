@@ -42,8 +42,11 @@ class PostURLTests(TestCase):
             'posts:post_detail',
             kwargs={'post_id': self.post.pk}
         )
+        reverse_index = reverse(
+            'posts:index'
+        )
         urls_list = [
-            '/',
+            reverse_index,
             reverse_group,
             reverse_user,
             reverse_post,
@@ -53,11 +56,12 @@ class PostURLTests(TestCase):
             self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_create_for_authorized(self):
-        response = self.authorized_client.get('/create/')
+        response = self.authorized_client.get(reverse('posts:post_create'))
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_post_edit_for_authorized(self):
-        response = self.authorized_client.get('/posts/1/edit/')
+        response = self.authorized_client.get(reverse(
+            'posts:post_edit', kwargs={'post_id': self.post.id}))
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_urls_uses_correct_template(self):
